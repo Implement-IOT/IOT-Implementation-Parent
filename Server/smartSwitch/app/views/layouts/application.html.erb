@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SmartSwitch</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+
+  <div>
+<% if user_signed_in? %>
+    Welcome <%=  current_user.email %>
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+<% else %>
+    <%= link_to "Sign in", new_user_session_path%> or <%= link_to "Sign up", new_user_registration_path %>
+<% end %>
+</div>
+
+  <body>
+      <ul class="hmenu">
+    <%= render 'shared/navigation' %>
+  </ul>
+  <% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <% end %>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
+
+
