@@ -10,6 +10,8 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'dbc5d5a1e57ac90389e61db430dba3abb44cbb91cb84dc640e19dcc41cd59468ac44f6f042377f5cc4bcee6d48f27602973d47c3f428ca125b6e7130a61715f1'
   
+  config.secret_key = Figaro.env.devise_secret_key if Rails.env.production?
+  
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -58,6 +60,7 @@ Devise.setup do |config|
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
   config.strip_whitespace_keys = [:email]
+
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
