@@ -2,9 +2,28 @@ class User
   include Mongoid::Document
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  # Get rid of devise-token_auth issues from activerecord
+  def self.table_exists?
+    true
+  end
+
+  def self.columns_hash
+    # Just fake it for devise-token-auth; since this model is schema-less, this method is not really useful otherwise
+    {} # An empty hash, so tokens_has_json_column_type will return false, which is probably what you want for Monogoid/BSON
+  end
+
+  def self.serialize(*args)
+
+  end
+
+  include DeviseTokenAuth::Concerns::User
+
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+
+#include DeviseTokenAuth::Concerns::User
   ## Database authenticatable
  # field :name,               type: String, default: ""
   field :email,              type: String, default: ""
@@ -25,7 +44,6 @@ class User
   field :last_sign_in_at,    type: Time
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
-
 
 
   ## Confirmable

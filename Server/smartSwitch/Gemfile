@@ -41,7 +41,7 @@ gem 'omniauth'
 gem 'bson_ext'
 gem 'devise'
 gem 'mongo'
-gem 'bson_ext'
+gem 'devise_token_auth'
 #gem "bootstrap-sass-rails"
 
 group :development, :test do
